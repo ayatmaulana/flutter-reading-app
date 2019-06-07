@@ -54,6 +54,12 @@ flutter:
    - assets/images/image_10.png
    - assets/images/image_11.png
    - assets/images/image_12.png
+   - assets/images/friends/friend_1.png
+   - assets/images/friends/friend_2.png
+   - assets/images/friends/friend_3.png
+   - assets/images/friends/friend_4.png
+   - assets/images/details/detail_1.png
+   - assets/images/details/detail_2.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
