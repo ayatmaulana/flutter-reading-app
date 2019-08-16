@@ -1,6 +1,14 @@
+// import 'dart:ui' as prefix0;
+
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 class Detail extends StatefulWidget {
+  String name;
+  String image;
+
+  Detail({Key key, this.name, this.image}): super(key: key);
+
   @override
   _DetailState createState() => _DetailState();
 }
@@ -16,10 +24,24 @@ class _DetailState extends State<Detail> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.arrow_back_ios),
+                      ),
+                    )
+                  ],
+                ),
                 SizedBox(
                   height: 10,
                 ),
-                Image.asset('assets/images/image_8.png'),
+                Image.asset(widget.image),
                 SizedBox(
                   height: 10,
                 ),
@@ -135,7 +157,7 @@ class _DetailState extends State<Detail> {
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 50),
                   child: Container(
                       child: Column(
                     children: <Widget>[
@@ -158,10 +180,26 @@ class _DetailState extends State<Detail> {
                       SizedBox(
                         height: 20,
                       ),
-                      _buildDetailedList(imageAsset: 'assets/images/details/detail_1.png', progress: 50.0, title: 'Seni untuk bersikap bodo amat'),
-                      _buildDetailedList(imageAsset: 'assets/images/image_2.png', progress: 150.0, title: 'This is my startup'),
-                      _buildDetailedList(imageAsset: 'assets/images/image_3.png', progress: 10.0, title: 'Startup pedia'),
-                      _buildDetailedList(imageAsset: 'assets/images/image_5.png', progress: 250.0, title: '10 cara menahan kencing'),
+                      _buildDetailedList(
+                          imageAsset: 'assets/images/details/detail_1.png',
+                          progress: 50.0,
+                          title: 'Seni untuk bersikap bodo amat',
+                          shadow: Colors.red),
+                      _buildDetailedList(
+                          imageAsset: 'assets/images/image_2.png',
+                          progress: 150.0,
+                          title: 'This is my startup',
+                          shadow: Colors.green),
+                      _buildDetailedList(
+                          imageAsset: 'assets/images/image_3.png',
+                          progress: 10.0,
+                          title: 'Startup pedia',
+                          shadow: Colors.black12),
+                      _buildDetailedList(
+                          imageAsset: 'assets/images/image_5.png',
+                          progress: 250.0,
+                          title: '10 cara menahan kencing',
+                          shadow: Colors.blue),
                       // _buildDetailedList(),
                     ],
                   )),
@@ -174,14 +212,47 @@ class _DetailState extends State<Detail> {
     );
   }
 
-  Container _buildDetailedList({String imageAsset, double progress, String title}) {
+  Container _buildDetailedList(
+      {String imageAsset, double progress, String title, Color shadow}) {
     return Container(
+      padding: const EdgeInsets.only(bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset(
-            imageAsset,
-            height: 140,
+          Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                              color: shadow,
+                              offset: Offset(-6, 8),
+                              blurRadius: 3)
+                  ]
+                ),
+              child: Image.asset(
+                imageAsset,
+                height: 140,
+              ),)
+              // Positioned.fill(
+              //   top: 3,
+              //   bottom: 5,
+              //   // left: 1,
+              //   // width: 50,
+              //   //     height: 50,
+              //   child: Container(
+              //       // width: 50,
+              //       // height: 50,
+              //       color: Colors.black.withOpacity(0.7),
+              //       child: BackdropFilter(
+              //         filter: prefix0.ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              //         child: Container(
+              //           // color: Colors.black.withOpacity(0.7),
+              //         ),
+              //       )),
+              // )
+              
+            ],
           ),
           Container(
             constraints: BoxConstraints(
@@ -199,8 +270,8 @@ class _DetailState extends State<Detail> {
                     Expanded(
                       child: Text(
                         title,
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                     Row(
@@ -232,10 +303,7 @@ class _DetailState extends State<Detail> {
                   alignment: Alignment.centerRight,
                   child: Text(
                     'Chapter 3: Far Away',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFFA3A4AC)
-                    ),
+                    style: TextStyle(fontSize: 16, color: Color(0xFFA3A4AC)),
                   ),
                 ),
                 SizedBox(
