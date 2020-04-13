@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:division/division.dart';
 
 class Detail extends StatefulWidget {
   String name;
@@ -19,11 +21,37 @@ class _DetailState extends State<Detail> {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+        child: AnimationLimiter(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: const Duration(milliseconds: 375),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: 50.0,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: _childrenContent(context),
+                )
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  final _title = (String wording) => Txt(wording, style: TxtStyle()
+  ..fontSize(18.0)
+  ..fontWeight(FontWeight.bold), );
+
+  
+
+  List<Widget> _childrenContent(BuildContext context) {
+    return <Widget>[
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
@@ -75,11 +103,7 @@ class _DetailState extends State<Detail> {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        'Synopys',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
+                      _title('Synopsis'),
                       SizedBox(
                         height: 10,
                       ),
@@ -118,11 +142,7 @@ class _DetailState extends State<Detail> {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        'Friend Who Read This',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
+                      _title('Friend Who Read This'),
                       SizedBox(
                         height: 10,
                       ),
@@ -165,11 +185,7 @@ class _DetailState extends State<Detail> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                            'Reading List',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
+                          _title('Reading List'),
                           Text(
                             'View All',
                             style: TextStyle(
@@ -204,16 +220,15 @@ class _DetailState extends State<Detail> {
                     ],
                   )),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ];
   }
 
-  Container _buildDetailedList(
-      {String imageAsset, double progress, String title, Color shadow}) {
+  Container _buildDetailedList({
+    String imageAsset, 
+    double progress, 
+    String title,
+    Color shadow
+  }) {
     return Container(
       padding: const EdgeInsets.only(bottom: 15),
       child: Row(
@@ -310,7 +325,7 @@ class _DetailState extends State<Detail> {
                   height: 10,
                 ),
                 Container(
-                    child: Stack(
+                  child: Stack(
                   children: <Widget>[
                     Container(
                       // alignment: Alignment.center,
