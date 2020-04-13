@@ -3,4 +3,4 @@
 A new Flutter project.
 
 
-<img src="/assets/images/flutter-reading.gif?raw=true" >
+<img src="/assets/images/flutter-reading.gif?raw=true" height="650">
